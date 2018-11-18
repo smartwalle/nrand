@@ -1,4 +1,4 @@
-package str4go
+package rand4go
 
 import (
 	"fmt"

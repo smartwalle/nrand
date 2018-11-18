@@ -1,4 +1,4 @@
-package str4go
+package rand4go
 
 import (
 	"math/rand"
@@ -28,7 +28,7 @@ func init() {
 	source[K_RAND_TYPE_NUM_ONLY] = k_SOURCE_NUM
 	source[K_RAND_TYPE_LOWER_ONLY] = k_SOURCE_LOWER
 	source[K_RAND_TYPE_UPPER_ONLY] = k_SOURCE_UPPER
-	source[K_RAND_TYPE_LOWER_NUM] =  k_SOURCE_LOWER + k_SOURCE_NUM
+	source[K_RAND_TYPE_LOWER_NUM] = k_SOURCE_LOWER + k_SOURCE_NUM
 	source[K_RAND_TYPE_UPPER_NUM] = k_SOURCE_UPPER + k_SOURCE_NUM
 	source[K_RAND_TYPE_LOWER_UPPER] = k_SOURCE_UPPER + k_SOURCE_LOWER
 }

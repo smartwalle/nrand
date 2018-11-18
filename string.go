@@ -1,10 +1,5 @@
 package rand4go
 
-import (
-	"math/rand"
-	"time"
-)
-
 const (
 	k_SOURCE_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	k_SOURCE_LOWER = "abcdefghijklmnopqrstuvwxyz"
@@ -39,7 +34,7 @@ func RandString(size, rType int) (str string) {
 		src = source[K_RAND_TYPE_DEFAULT]
 	}
 
-	var r = rand.New(rand.NewSource(time.Now().UnixNano()))
+	var r = newRand()
 	for i := 0; i < size; i++ {
 		idx := r.Intn(len(src) - 1)
 		str += src[idx : idx+1]

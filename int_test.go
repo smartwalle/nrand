@@ -6,16 +6,25 @@ import (
 )
 
 func TestRandInt(t *testing.T) {
-	fmt.Println(RandInt())
-	fmt.Println(RandInt())
-	fmt.Println(RandInt())
-	fmt.Println(RandInt())
+	fmt.Println(Int())
+	fmt.Println(Int())
+	fmt.Println(Int())
+	fmt.Println(Int())
+	fmt.Println(Int())
 }
 
 func TestRandIntn(t *testing.T) {
-	fmt.Println(RandIntn(10))
-	fmt.Println(RandIntn(20))
-	fmt.Println(RandIntn(30))
-	fmt.Println(RandIntn(40))
-	fmt.Println(RandIntn(50))
+	fmt.Println(Intn(10))
+	fmt.Println(Intn(20))
+	fmt.Println(Intn(30))
+	fmt.Println(Intn(40))
+	fmt.Println(Intn(50))
+}
+
+func TestRandIntRange(t *testing.T) {
+	fmt.Println(IntRange(3, 10))
+	fmt.Println(IntRange(3, 10))
+	fmt.Println(IntRange(3, 10))
+	fmt.Println(IntRange(3, 10))
+	fmt.Println(IntRange(3, 10))
 }

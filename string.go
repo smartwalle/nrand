@@ -28,7 +28,7 @@ func init() {
 	source[K_RAND_TYPE_LOWER_UPPER] = k_SOURCE_UPPER + k_SOURCE_LOWER
 }
 
-func RandString(size, rType int) (str string) {
+func String(size, rType int) (str string) {
 	var src = source[rType]
 	if src == "" {
 		src = source[K_RAND_TYPE_DEFAULT]

@@ -1,9 +1,9 @@
 package rand4go
 
 const (
-	k_SOURCE_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	k_SOURCE_LOWER = "abcdefghijklmnopqrstuvwxyz"
-	k_SOURCE_NUM   = "0123456789"
+	kUpperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	kLowerChar = "abcdefghijklmnopqrstuvwxyz"
+	kNumber    = "0123456789"
 )
 
 const (
@@ -19,13 +19,13 @@ const (
 var source = make(map[int]string)
 
 func init() {
-	source[K_RAND_TYPE_DEFAULT] = k_SOURCE_UPPER + k_SOURCE_LOWER + k_SOURCE_NUM
-	source[K_RAND_TYPE_NUM_ONLY] = k_SOURCE_NUM
-	source[K_RAND_TYPE_LOWER_ONLY] = k_SOURCE_LOWER
-	source[K_RAND_TYPE_UPPER_ONLY] = k_SOURCE_UPPER
-	source[K_RAND_TYPE_LOWER_NUM] = k_SOURCE_LOWER + k_SOURCE_NUM
-	source[K_RAND_TYPE_UPPER_NUM] = k_SOURCE_UPPER + k_SOURCE_NUM
-	source[K_RAND_TYPE_LOWER_UPPER] = k_SOURCE_UPPER + k_SOURCE_LOWER
+	source[K_RAND_TYPE_DEFAULT] = kUpperChar + kLowerChar + kNumber
+	source[K_RAND_TYPE_NUM_ONLY] = kNumber
+	source[K_RAND_TYPE_LOWER_ONLY] = kLowerChar
+	source[K_RAND_TYPE_UPPER_ONLY] = kUpperChar
+	source[K_RAND_TYPE_LOWER_NUM] = kLowerChar + kNumber
+	source[K_RAND_TYPE_UPPER_NUM] = kUpperChar + kNumber
+	source[K_RAND_TYPE_LOWER_UPPER] = kUpperChar + kLowerChar
 }
 
 func String(size, rType int) (str string) {

@@ -7,31 +7,31 @@ const (
 )
 
 const (
-	K_RAND_TYPE_DEFAULT     = 0
-	K_RAND_TYPE_NUM_ONLY    = 1
-	K_RAND_TYPE_LOWER_ONLY  = 2
-	K_RAND_TYPE_UPPER_ONLY  = 3
-	K_RAND_TYPE_LOWER_NUM   = 4
-	K_RAND_TYPE_UPPER_NUM   = 5
-	K_RAND_TYPE_LOWER_UPPER = 6
+	RandTypeDefault    = 0
+	RandTypeNumOnly    = 1
+	RandTypeLowerOnly  = 2
+	RandTypeUpperOnly  = 3
+	RandTypeLowerNum   = 4
+	RandTypeUpperNum   = 5
+	RandTypeLowerUpper = 6
 )
 
 var source = make(map[int]string)
 
 func init() {
-	source[K_RAND_TYPE_DEFAULT] = kUpperChar + kLowerChar + kNumber
-	source[K_RAND_TYPE_NUM_ONLY] = kNumber
-	source[K_RAND_TYPE_LOWER_ONLY] = kLowerChar
-	source[K_RAND_TYPE_UPPER_ONLY] = kUpperChar
-	source[K_RAND_TYPE_LOWER_NUM] = kLowerChar + kNumber
-	source[K_RAND_TYPE_UPPER_NUM] = kUpperChar + kNumber
-	source[K_RAND_TYPE_LOWER_UPPER] = kUpperChar + kLowerChar
+	source[RandTypeDefault] = kUpperChar + kLowerChar + kNumber
+	source[RandTypeNumOnly] = kNumber
+	source[RandTypeLowerOnly] = kLowerChar
+	source[RandTypeUpperOnly] = kUpperChar
+	source[RandTypeLowerNum] = kLowerChar + kNumber
+	source[RandTypeUpperNum] = kUpperChar + kNumber
+	source[RandTypeLowerUpper] = kUpperChar + kLowerChar
 }
 
 func String(size, rType int) (str string) {
 	var src = source[rType]
 	if src == "" {
-		src = source[K_RAND_TYPE_DEFAULT]
+		src = source[RandTypeDefault]
 	}
 
 	var r = newRand()

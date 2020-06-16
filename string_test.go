@@ -6,11 +6,11 @@ import (
 )
 
 func TestRandString(t *testing.T) {
-	fmt.Println(String(6, K_RAND_TYPE_DEFAULT))
-	fmt.Println(String(6, K_RAND_TYPE_NUM_ONLY))
-	fmt.Println(String(6, K_RAND_TYPE_LOWER_ONLY))
-	fmt.Println(String(6, K_RAND_TYPE_UPPER_ONLY))
-	fmt.Println(String(6, K_RAND_TYPE_LOWER_NUM))
-	fmt.Println(String(6, K_RAND_TYPE_UPPER_NUM))
-	fmt.Println(String(6, K_RAND_TYPE_LOWER_UPPER))
+	fmt.Println(String(6, RandTypeDefault))
+	fmt.Println(String(6, RandTypeNumOnly))
+	fmt.Println(String(6, RandTypeLowerOnly))
+	fmt.Println(String(6, RandTypeUpperOnly))
+	fmt.Println(String(6, RandTypeLowerNum))
+	fmt.Println(String(6, RandTypeUpperNum))
+	fmt.Println(String(6, RandTypeLowerUpper))
 }

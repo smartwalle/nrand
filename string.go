@@ -6,38 +6,41 @@ const (
 	kNumber    = "0123456789"
 )
 
+type RandSource int
+
 const (
-	RandTypeDefault    = 0
-	RandTypeNumOnly    = 1
-	RandTypeLowerOnly  = 2
-	RandTypeUpperOnly  = 3
-	RandTypeLowerNum   = 4
-	RandTypeUpperNum   = 5
-	RandTypeLowerUpper = 6
+	RandSourceAll        RandSource = 0
+	RandSourceNum        RandSource = 1
+	RandSourceLower      RandSource = 2
+	RandSourceUpper      RandSource = 3
+	RandSourceLowerNum   RandSource = 4
+	RandSourceUpperNum   RandSource = 5
+	RandSourceLowerUpper RandSource = 6
 )
 
-var source = make(map[int]string)
+var sources = make(map[RandSource][]rune)
 
 func init() {
-	source[RandTypeDefault] = kUpperChar + kLowerChar + kNumber
-	source[RandTypeNumOnly] = kNumber
-	source[RandTypeLowerOnly] = kLowerChar
-	source[RandTypeUpperOnly] = kUpperChar
-	source[RandTypeLowerNum] = kLowerChar + kNumber
-	source[RandTypeUpperNum] = kUpperChar + kNumber
-	source[RandTypeLowerUpper] = kUpperChar + kLowerChar
+	sources[RandSourceAll] = []rune(kUpperChar + kLowerChar + kNumber)
+	sources[RandSourceNum] = []rune(kNumber)
+	sources[RandSourceLower] = []rune(kLowerChar)
+	sources[RandSourceUpper] = []rune(kUpperChar)
+	sources[RandSourceLowerNum] = []rune(kLowerChar + kNumber)
+	sources[RandSourceUpperNum] = []rune(kUpperChar + kNumber)
+	sources[RandSourceLowerUpper] = []rune(kUpperChar + kLowerChar)
 }
 
-func String(size, rType int) (str string) {
-	var src = source[rType]
-	if src == "" {
-		src = source[RandTypeDefault]
+func String(size int, source RandSource) string {
+	var s = sources[source]
+	if len(s) == 0 {
+		s = sources[RandSourceAll]
 	}
 
+	var d = make([]rune, size)
 	var r = newRand()
-	for i := 0; i < size; i++ {
-		idx := r.Intn(len(src) - 1)
-		str += src[idx : idx+1]
+
+	for i := range d {
+		d[i] = s[r.Intn(len(s))]
 	}
-	return str
+	return string(d)
 }

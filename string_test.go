@@ -14,3 +14,10 @@ func TestRandString(t *testing.T) {
 	fmt.Println(String(6, RandSourceUpperNum))
 	fmt.Println(String(6, RandSourceLowerUpper))
 }
+
+func BenchmarkString(b *testing.B) {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		String(6, RandSourceAll)
+	}
+}

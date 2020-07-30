@@ -1,5 +1,7 @@
 package rand4go
 
+import "strings"
+
 const (
 	kUpperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	kLowerChar = "abcdefghijklmnopqrstuvwxyz"
@@ -18,16 +20,16 @@ const (
 	RandSourceLowerUpper RandSource = 6
 )
 
-var sources = make(map[RandSource][]rune)
+var sources = make(map[RandSource][]byte)
 
 func init() {
-	sources[RandSourceAll] = []rune(kUpperChar + kLowerChar + kNumber)
-	sources[RandSourceNum] = []rune(kNumber)
-	sources[RandSourceLower] = []rune(kLowerChar)
-	sources[RandSourceUpper] = []rune(kUpperChar)
-	sources[RandSourceLowerNum] = []rune(kLowerChar + kNumber)
-	sources[RandSourceUpperNum] = []rune(kUpperChar + kNumber)
-	sources[RandSourceLowerUpper] = []rune(kUpperChar + kLowerChar)
+	sources[RandSourceAll] = []byte(kUpperChar + kLowerChar + kNumber)
+	sources[RandSourceNum] = []byte(kNumber)
+	sources[RandSourceLower] = []byte(kLowerChar)
+	sources[RandSourceUpper] = []byte(kUpperChar)
+	sources[RandSourceLowerNum] = []byte(kLowerChar + kNumber)
+	sources[RandSourceUpperNum] = []byte(kUpperChar + kNumber)
+	sources[RandSourceLowerUpper] = []byte(kUpperChar + kLowerChar)
 }
 
 func String(size int, source RandSource) string {
@@ -36,11 +38,13 @@ func String(size int, source RandSource) string {
 		s = sources[RandSourceAll]
 	}
 
-	var d = make([]rune, size)
 	var r = newRand()
 
-	for i := range d {
-		d[i] = s[r.Intn(len(s))]
+	var b = strings.Builder{}
+	b.Grow(size)
+
+	for i := 0; i < size; i++ {
+		b.WriteByte(s[r.Intn(len(s))])
 	}
-	return string(d)
+	return b.String()
 }

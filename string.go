@@ -2,8 +2,8 @@ package rand4go
 
 import (
 	"math/rand"
-	"strings"
 	"time"
+	"unsafe"
 )
 
 type RandSource int
@@ -55,12 +55,26 @@ func NewRandString(source RandSource) *RandString {
 	return rs
 }
 
-func (this *RandString) Next(size int) string {
-	var b = strings.Builder{}
-	b.Grow(size)
+const (
+	letterIdxBits = 6                    // 6 bits to represent a letter index
+	letterIdxMask = 1<<letterIdxBits - 1 // All 1-bits, as many as letterIdxBits
+	letterIdxMax  = 63 / letterIdxBits   // # of letter indices fitting in 63 bits
+)
 
-	for i := 0; i < size; i++ {
-		b.WriteByte(this.src[this.r.Intn(len(this.src))])
+// Next https://stackoverflow.com/questions/22892120/how-to-generate-a-random-string-of-a-fixed-length-in-go
+func (this *RandString) Next(size int) string {
+	var b = make([]byte, size)
+	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!
+	for i, cache, remain := size-1, this.r.Int63(), letterIdxMax; i >= 0; {
+		if remain == 0 {
+			cache, remain = this.r.Int63(), letterIdxMax
+		}
+		if idx := int(cache & letterIdxMask); idx < len(this.src) {
+			b[i] = this.src[idx]
+			i--
+		}
+		cache >>= letterIdxBits
+		remain--
 	}
-	return b.String()
+	return *(*string)(unsafe.Pointer(&b))
 }

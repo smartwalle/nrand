@@ -24,13 +24,13 @@ func String(size int, source RandSource) string {
 }
 
 type RandString struct {
-	r   *rand.Rand
+	rs  rand.Source
 	src []byte
 }
 
 func NewRandString(source RandSource) *RandString {
 	var rs = &RandString{}
-	rs.r = rand.New(rand.NewSource(time.Now().UnixNano()))
+	rs.rs = rand.NewSource(time.Now().UnixNano())
 
 	var upperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	var lowerChar = "abcdefghijklmnopqrstuvwxyz"
@@ -65,9 +65,9 @@ const (
 func (this *RandString) Next(size int) string {
 	var b = make([]byte, size)
 	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!
-	for i, cache, remain := size-1, this.r.Int63(), letterIdxMax; i >= 0; {
+	for i, cache, remain := size-1, this.rs.Int63(), letterIdxMax; i >= 0; {
 		if remain == 0 {
-			cache, remain = this.r.Int63(), letterIdxMax
+			cache, remain = this.rs.Int63(), letterIdxMax
 		}
 		if idx := int(cache & letterIdxMask); idx < len(this.src) {
 			b[i] = this.src[idx]

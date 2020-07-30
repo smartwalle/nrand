@@ -1,11 +1,9 @@
 package rand4go
 
-import "strings"
-
-const (
-	kUpperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	kLowerChar = "abcdefghijklmnopqrstuvwxyz"
-	kNumber    = "0123456789"
+import (
+	"math/rand"
+	"strings"
+	"time"
 )
 
 type RandSource int
@@ -20,31 +18,49 @@ const (
 	RandSourceLowerUpper RandSource = 6
 )
 
-var sources = make(map[RandSource][]byte)
-
-func init() {
-	sources[RandSourceAll] = []byte(kUpperChar + kLowerChar + kNumber)
-	sources[RandSourceNum] = []byte(kNumber)
-	sources[RandSourceLower] = []byte(kLowerChar)
-	sources[RandSourceUpper] = []byte(kUpperChar)
-	sources[RandSourceLowerNum] = []byte(kLowerChar + kNumber)
-	sources[RandSourceUpperNum] = []byte(kUpperChar + kNumber)
-	sources[RandSourceLowerUpper] = []byte(kUpperChar + kLowerChar)
+func String(size int, source RandSource) string {
+	var rs = NewRandString(source)
+	return rs.Next(size)
 }
 
-func String(size int, source RandSource) string {
-	var s = sources[source]
-	if len(s) == 0 {
-		s = sources[RandSourceAll]
+type RandString struct {
+	r   *rand.Rand
+	src []byte
+}
+
+func NewRandString(source RandSource) *RandString {
+	var rs = &RandString{}
+	rs.r = rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	var upperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	var lowerChar = "abcdefghijklmnopqrstuvwxyz"
+	var number = "0123456789"
+
+	switch source {
+	case RandSourceAll:
+		rs.src = []byte(upperChar + lowerChar + number)
+	case RandSourceNum:
+		rs.src = []byte(number)
+	case RandSourceLower:
+		rs.src = []byte(lowerChar)
+	case RandSourceUpper:
+		rs.src = []byte(upperChar)
+	case RandSourceLowerNum:
+		rs.src = []byte(lowerChar + number)
+	case RandSourceUpperNum:
+		rs.src = []byte(upperChar + number)
+	case RandSourceLowerUpper:
+		rs.src = []byte(upperChar + lowerChar)
 	}
+	return rs
+}
 
-	var r = newRand()
-
+func (this *RandString) Next(size int) string {
 	var b = strings.Builder{}
 	b.Grow(size)
 
 	for i := 0; i < size; i++ {
-		b.WriteByte(s[r.Intn(len(s))])
+		b.WriteByte(this.src[this.r.Intn(len(this.src))])
 	}
 	return b.String()
 }

@@ -21,3 +21,11 @@ func BenchmarkString(b *testing.B) {
 		String(6, RandSourceAll)
 	}
 }
+
+func BenchmarkRandString_Next(b *testing.B) {
+	var rs = NewRandString(RandSourceAll)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		rs.Next(6)
+	}
+}

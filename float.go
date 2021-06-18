@@ -1,9 +1,9 @@
 package rand4go
 
 func Float32() float32 {
-	return newRand().Float32()
+	return sharedRand().Float32()
 }
 
 func Float64() float64 {
-	return newRand().Float64()
+	return sharedRand().Float64()
 }

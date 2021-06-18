@@ -27,4 +27,5 @@ func TestRandIntRange(t *testing.T) {
 	fmt.Println(IntRange(3, 10))
 	fmt.Println(IntRange(3, 10))
 	fmt.Println(IntRange(3, 10))
+	fmt.Println(IntRange(1, 3))
 }

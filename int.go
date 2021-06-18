@@ -1,67 +1,45 @@
 package rand4go
 
-// --------------------------------------------------------------------------------
 func Int() int {
-	return newRand().Int()
+	return sharedRand().Int()
 }
 
 func Intn(n int) int {
-	return newRand().Intn(n)
+	return sharedRand().Intn(n)
 }
 
 func IntRange(min, max int) int {
-	if min == max {
-		return min
-	}
-	if min > max {
-		min, max = max, min
-	}
-	return Intn(max-min) + min
+	return sharedRand().IntRange(min, max)
 }
 
-// --------------------------------------------------------------------------------
 func Int32() int32 {
-	return newRand().Int31()
+	return sharedRand().Int32()
 }
 
 func Int32n(n int32) int32 {
-	return newRand().Int31n(n)
+	return sharedRand().Int32n(n)
 }
 
 func Int32Range(min, max int32) int32 {
-	if min == max {
-		return min
-	}
-	if min > max {
-		min, max = max, min
-	}
-	return Int32n(max-min) + min
+	return sharedRand().Int32Range(min, max)
 }
 
-// --------------------------------------------------------------------------------
 func Int64() int64 {
-	return newRand().Int63()
+	return sharedRand().Int64()
 }
 
 func Int64n(n int64) int64 {
-	return newRand().Int63n(n)
+	return sharedRand().Int64n(n)
 }
 
 func Int64Range(min, max int64) int64 {
-	if min == max {
-		return min
-	}
-	if min > max {
-		min, max = max, min
-	}
-	return Int64n(max-min) + min
+	return sharedRand().Int64Range(min, max)
 }
 
-// --------------------------------------------------------------------------------
-func UInt32() uint32 {
-	return newRand().Uint32()
+func Uint32() uint32 {
+	return sharedRand().Uint32()
 }
 
-func UInt64() uint64 {
-	return newRand().Uint64()
+func Uint64() uint64 {
+	return sharedRand().Uint64()
 }

@@ -1,4 +1,4 @@
-package rand4go
+package nrand
 
 func Int() int {
 	return sharedRand().Int()

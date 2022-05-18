@@ -1,3 +1,3 @@
-module github.com/smartwalle/rand4go
+module github.com/smartwalle/nrand
 
 go 1.12

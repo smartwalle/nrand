@@ -1,4 +1,4 @@
-package rand4go
+package nrand
 
 import (
 	"math/rand"

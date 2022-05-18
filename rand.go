@@ -1,4 +1,4 @@
-package rand4go
+package nrand
 
 import (
 	"math/rand"
@@ -11,7 +11,7 @@ var once sync.Once
 
 func sharedRand() *Rand {
 	once.Do(func() {
-		shared = NewRand()
+		shared = NewRand(time.Now().UnixNano())
 	})
 	return shared
 }
@@ -20,9 +20,9 @@ type Rand struct {
 	r *rand.Rand
 }
 
-func NewRand() *Rand {
+func NewRand(seed int64) *Rand {
 	var r = &Rand{}
-	r.r = rand.New(rand.NewSource(time.Now().UnixNano()))
+	r.r = rand.New(rand.NewSource(seed))
 	return r
 }
 

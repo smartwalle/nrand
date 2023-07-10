@@ -2,19 +2,10 @@ package nrand
 
 import (
 	"math/rand"
-	"sync"
 	"time"
 )
 
-var shared *Rand
-var once sync.Once
-
-func sharedRand() *Rand {
-	once.Do(func() {
-		shared = NewRand(time.Now().UnixNano())
-	})
-	return shared
-}
+var shared = NewRand(time.Now().UnixNano())
 
 type Rand struct {
 	r *rand.Rand

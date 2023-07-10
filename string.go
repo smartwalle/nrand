@@ -18,9 +18,16 @@ const (
 	RandSourceLowerUpper RandSource = 6
 )
 
-func String(size int, source RandSource) string {
-	var rs = NewRandString(source)
-	return rs.Next(size)
+const (
+	kUpperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	kLowerChar = "abcdefghijklmnopqrstuvwxyz"
+	kNumber    = "0123456789"
+)
+
+var rString = NewRandString(RandSourceAll)
+
+func String(size int) string {
+	return rString.Next(size)
 }
 
 type RandString struct {
@@ -32,25 +39,21 @@ func NewRandString(source RandSource) *RandString {
 	var rs = &RandString{}
 	rs.rs = rand.NewSource(time.Now().UnixNano())
 
-	var upperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	var lowerChar = "abcdefghijklmnopqrstuvwxyz"
-	var number = "0123456789"
-
 	switch source {
 	case RandSourceAll:
-		rs.src = []byte(upperChar + lowerChar + number)
+		rs.src = []byte(kUpperChar + kLowerChar + kNumber)
 	case RandSourceNum:
-		rs.src = []byte(number)
+		rs.src = []byte(kNumber)
 	case RandSourceLower:
-		rs.src = []byte(lowerChar)
+		rs.src = []byte(kLowerChar)
 	case RandSourceUpper:
-		rs.src = []byte(upperChar)
+		rs.src = []byte(kUpperChar)
 	case RandSourceLowerNum:
-		rs.src = []byte(lowerChar + number)
+		rs.src = []byte(kLowerChar + kNumber)
 	case RandSourceUpperNum:
-		rs.src = []byte(upperChar + number)
+		rs.src = []byte(kUpperChar + kNumber)
 	case RandSourceLowerUpper:
-		rs.src = []byte(upperChar + lowerChar)
+		rs.src = []byte(kUpperChar + kLowerChar)
 	}
 	return rs
 }

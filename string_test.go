@@ -1,29 +1,30 @@
-package nrand
+package nrand_test
 
 import (
 	"fmt"
+	"github.com/smartwalle/nrand"
 	"testing"
 )
 
 func TestRandString(t *testing.T) {
-	fmt.Println(String(6, RandSourceAll))
-	fmt.Println(String(6, RandSourceNum))
-	fmt.Println(String(6, RandSourceLower))
-	fmt.Println(String(6, RandSourceUpper))
-	fmt.Println(String(6, RandSourceLowerNum))
-	fmt.Println(String(6, RandSourceUpperNum))
-	fmt.Println(String(6, RandSourceLowerUpper))
+	fmt.Println(nrand.String(6))
+	fmt.Println(nrand.String(6))
+	fmt.Println(nrand.String(6))
+	fmt.Println(nrand.String(6))
+	fmt.Println(nrand.String(6))
+	fmt.Println(nrand.String(6))
+	fmt.Println(nrand.String(6))
 }
 
 func BenchmarkString(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		String(6, RandSourceAll)
+		nrand.String(6)
 	}
 }
 
 func BenchmarkRandString_Next(b *testing.B) {
-	var rs = NewRandString(RandSourceAll)
+	var rs = nrand.NewRandString(nrand.RandSourceAll)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		rs.Next(6)
